@@ -1,8 +1,9 @@
 // components/TaxReportCard.tsx
-import { Star, Cat, PawPrint } from 'lucide-react';
+import { Star, Cat, PawPrint, Sparkles } from 'lucide-react';
 import RadarChart from './RadarChart'; // 假设RadarChart组件路径正确
 import ShareButton from './ShareButton'; // 假设ShareButton组件路径正确
 import { CatFeatures } from '../type';
+import { motion } from 'framer-motion';
 
 // 高亮关键词的函数
 const highlightKeywords = (text: string) => {
@@ -26,7 +27,8 @@ const highlightKeywords = (text: string) => {
 };
 
 
-export function TaxReportCard({ features }: { features: CatFeatures }) {
+export default function TaxReportCard({ features }: { features: CatFeatures }) {
+
 
     // 修改数据格式
     const radarData = [
@@ -50,6 +52,27 @@ export function TaxReportCard({ features }: { features: CatFeatures }) {
         // 这里可以实现具体的税款计算逻辑
         return '根据萌力值和体重指数计算的税款信息';
     };
+
+    const taxResult = generateTax(features);
+
+    // 彩蛋内容（无猫用户）
+    if (!features.hasCat) {
+        return (
+            <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="bg-blue-50 p-6 rounded-lg text-center"
+            >
+                <Sparkles className="mx-auto mb-4 w-8 h-8 text-yellow-400" />
+                <h3 className="text-xl font-bold mb-2">
+                    🪙 云养猫许可证
+                </h3>
+                <p className="text-gray-600">
+                    {generateTax(features)} {/* 调用彩蛋文本生成 */}
+                </p>
+            </motion.div>
+        );
+    }
 
     return (
         <div className="bg-gradient-to-r from-pink-100 to-orange-50 p-6 rounded-2xl shadow-lg">

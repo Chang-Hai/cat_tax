@@ -9,6 +9,7 @@ export type CatFeatures = {
     isFat?: boolean;        // 是否超重
     eyeColor?: string;      // 眼睛颜色
     pattern?: string;       // 花纹，如 "条纹"、"斑点"
+    hasCat?: boolean;       //
 };
 
 export type TaxTemplate = {
